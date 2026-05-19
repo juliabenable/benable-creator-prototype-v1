@@ -1,15 +1,13 @@
-import PolaroidPostcard from './components/PolaroidPostcard.jsx';
+import { useState } from 'react';
+import MobileShell from './shell/MobileShell.jsx';
 
 export default function App() {
+  const [tab, setTab] = useState('campaigns');
   return (
-    <div style={{ minHeight: '100%', display: 'grid', placeItems: 'center', background: '#222' }}>
-      <PolaroidPostcard
-        thumbnailUrl={`${import.meta.env.BASE_URL}sample-post.svg`}
-        platform="Instagram Reel"
-        brandName="Pikora"
-        message="this made our whole week — thank you for the magic ✨"
-        signoff="— the Pikora team"
-      />
-    </div>
+    <MobileShell title="Campaigns" activeTab={tab} onSelectTab={setTab}>
+      <div style={{ padding: 20, color: '#666', fontFamily: 'system-ui' }}>
+        Campaigns content goes here
+      </div>
+    </MobileShell>
   );
 }

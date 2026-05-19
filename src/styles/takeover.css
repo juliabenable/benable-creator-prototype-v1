@@ -215,9 +215,11 @@
   .tyt--sealed .tyt-envelope::after { animation: none; }
   .tyt-env-flap, .tyt-seal, .tyt-polaroid-wrap { transition: none; }
   .tyt-env-flap, .tyt-env-front, .tyt-env-back, .tyt-seal { display: none; }
-  .tyt-polaroid-wrap {
+  .tyt-polaroid-wrap,
+  .tyt--revealed .tyt-polaroid-wrap {
     position: static;
-    transform: rotate(-2deg);
+    transform: none;
+    z-index: 6;
   }
   .tyt--revealed .tyt-cp { animation: none; }
 }

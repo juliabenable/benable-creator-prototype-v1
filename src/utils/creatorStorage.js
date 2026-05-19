@@ -41,12 +41,15 @@ export function getPostcard(campaignId, creatorHandle) {
   return (entry && entry.postcard) || null;
 }
 
-// Seed the demo postcard if no entry exists yet. Idempotent.
+// Seed the demo postcard only if NO entry exists for this key yet. This
+// preserves any real brand-written entry untouched (the connect-later goal):
+// if the brand app already wrote this key for any reason, we never fabricate
+// a demo postcard over it.
 export function seedDemoPostcardIfMissing() {
   const all = readAll();
   const key = makeKey(DEMO.campaignId, DEMO.creatorHandle);
-  if (!all[key] || !all[key].postcard) {
-    all[key] = { ...(all[key] || {}), postcard: DEMO.postcard };
+  if (!all[key]) {
+    all[key] = { postcard: DEMO.postcard };
     writeAll(all);
   }
 }
@@ -58,10 +61,13 @@ export function markSeen(campaignId, creatorHandle) {
   localStorage.setItem(SEEN_PREFIX + makeKey(campaignId, creatorHandle), '1');
 }
 
-// Demo reset: clear the shared store + the seen flag, then re-seed so the
-// takeover auto-plays again on next Campaigns mount.
+// Demo reset: remove ONLY the demo entry + its seen flag (never other
+// entries — stays non-destructive for the connect-later scenario), then
+// re-seed so the takeover auto-plays again on next Campaigns mount.
 export function resetDemo() {
-  localStorage.removeItem(STORAGE_KEY);
+  const all = readAll();
+  delete all[makeKey(DEMO.campaignId, DEMO.creatorHandle)];
+  writeAll(all);
   localStorage.removeItem(SEEN_PREFIX + makeKey(DEMO.campaignId, DEMO.creatorHandle));
   seedDemoPostcardIfMissing();
 }

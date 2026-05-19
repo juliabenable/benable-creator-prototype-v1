@@ -11,7 +11,7 @@ export default function CampaignsScreen({ onOpenThankYou }) {
 
   return (
     <div className="campaigns">
-      <div className="subtabs" role="tablist">
+      <div className="subtabs" role="tablist" aria-label="Campaign status">
         {SUBTABS.map((t) => (
           <button
             key={t}
@@ -31,6 +31,7 @@ export default function CampaignsScreen({ onOpenThankYou }) {
           <FinishedCampaignCard
             brandName={DEMO.brandName}
             campaignTitle={DEMO.campaignTitle}
+            campaignDesc={DEMO.campaignDesc}
             hasThankYou={hasThankYou}
             onOpenThankYou={onOpenThankYou}
           />

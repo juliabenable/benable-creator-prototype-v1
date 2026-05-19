@@ -12,6 +12,7 @@ export const DEMO = {
   creatorHandle: '@rmtfka',
   brandName: 'Pikora',
   campaignTitle: 'Instant Beef Bone Broth',
+  campaignDesc: 'Create gripping content showcasing our new Bone Broth Collection.',
   postcard: {
     style: 'polaroid',
     message: 'this made our whole week — thank you for the magic ✨',

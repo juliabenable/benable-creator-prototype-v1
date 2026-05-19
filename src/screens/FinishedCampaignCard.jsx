@@ -1,4 +1,4 @@
-export default function FinishedCampaignCard({ brandName, campaignTitle, hasThankYou, onOpenThankYou }) {
+export default function FinishedCampaignCard({ brandName, campaignTitle, campaignDesc, hasThankYou, onOpenThankYou }) {
   return (
     <div className="fcard">
       <div className="fcard__brandrow">
@@ -7,9 +7,7 @@ export default function FinishedCampaignCard({ brandName, campaignTitle, hasThan
         <span className="fcard__status">Completed</span>
       </div>
       <div className="fcard__title">{campaignTitle}</div>
-      <p className="fcard__desc">
-        Create a gripping content showcasing our new Bone Broth Collection.
-      </p>
+      <p className="fcard__desc">{campaignDesc}</p>
       {hasThankYou && (
         <button type="button" className="fcard__thanks" onClick={onOpenThankYou}>
           <span aria-hidden="true">💌</span> Thank-you from {brandName} — tap to open

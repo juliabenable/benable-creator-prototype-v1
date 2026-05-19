@@ -18,11 +18,10 @@
 }
 .ios-statusbar {
   height: 54px;
-  padding: 0 26px;
+  padding: 0 26px 10px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  padding-bottom: 10px;
   font: 600 15px/1 -apple-system, system-ui, sans-serif;
   color: #111;
 }

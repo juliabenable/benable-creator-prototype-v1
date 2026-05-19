@@ -29,17 +29,21 @@ export default function App() {
   }
 
   return (
-    <MobileShell title="Campaigns" activeTab={tab} onSelectTab={setTab}>
-      {tab === 'campaigns'
-        ? <CampaignsScreen onOpenThankYou={() => setTakeoverOpen(true)} />
-        : <div style={{ padding: 20, color: '#999', fontFamily: 'system-ui' }}>Coming soon</div>}
-      {takeoverOpen && postcard && (
+    <MobileShell
+      title="Campaigns"
+      activeTab={tab}
+      onSelectTab={setTab}
+      overlay={takeoverOpen && postcard && (
         <ThankYouTakeover
           postcard={postcard}
           brandName={DEMO.brandName}
           onDismiss={dismissTakeover}
         />
       )}
+    >
+      {tab === 'campaigns'
+        ? <CampaignsScreen onOpenThankYou={() => setTakeoverOpen(true)} />
+        : <div style={{ padding: 20, color: '#999', fontFamily: 'system-ui' }}>Coming soon</div>}
     </MobileShell>
   );
 }

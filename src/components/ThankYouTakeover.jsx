@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PolaroidPostcard from './PolaroidPostcard.jsx';
-import { DEMO } from '../utils/creatorStorage.js';
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
@@ -12,22 +11,28 @@ export default function ThankYouTakeover({ postcard, brandName, onDismiss }) {
   const reduced = prefersReducedMotion();
   const [phase, setPhase] = useState(reduced ? 'revealed' : 'sealed');
   const [scrimIn, setScrimIn] = useState(false);
+  const openTimerRef = useRef(null);
+  const dismissTimerRef = useRef(null);
 
   useEffect(() => {
     const r = requestAnimationFrame(() => setScrimIn(true));
-    return () => cancelAnimationFrame(r);
+    return () => {
+      cancelAnimationFrame(r);
+      clearTimeout(openTimerRef.current);
+      clearTimeout(dismissTimerRef.current);
+    };
   }, []);
 
   function openEnvelope() {
     if (phase !== 'sealed') return;
     setPhase('opening');
-    window.setTimeout(() => setPhase('revealed'), 650);
+    openTimerRef.current = window.setTimeout(() => setPhase('revealed'), 650);
   }
 
   function dismiss() {
     setPhase('dismissed');
     setScrimIn(false);
-    window.setTimeout(onDismiss, 320);
+    dismissTimerRef.current = window.setTimeout(onDismiss, 320);
   }
 
   return (
@@ -40,7 +45,7 @@ export default function ThankYouTakeover({ postcard, brandName, onDismiss }) {
           aria-label={phase === 'sealed' ? `Open the thank-you from ${brandName}` : 'Thank-you postcard'}
         >
           <span className="tyt-env-back" aria-hidden="true" />
-          <span className="tyt-polaroid-wrap" aria-hidden={phase !== 'revealed'}>
+          <span className="tyt-polaroid-wrap" aria-hidden={phase !== 'revealed' ? true : undefined}>
             <PolaroidPostcard
               thumbnailUrl={postcard.thumbnailUrl}
               platform={postcard.platform}

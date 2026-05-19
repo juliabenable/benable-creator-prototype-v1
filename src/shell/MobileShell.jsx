@@ -7,7 +7,7 @@ const TABS = [
   { id: 'profile', label: 'Profile', Icon: User },
 ];
 
-export default function MobileShell({ title, activeTab, onSelectTab, children }) {
+export default function MobileShell({ title, activeTab, onSelectTab, children, overlay }) {
   return (
     <div className="app-bg">
       <div className="phone">
@@ -36,6 +36,8 @@ export default function MobileShell({ title, activeTab, onSelectTab, children })
           ))}
           <span className="tabbar__home-indicator" aria-hidden="true" />
         </nav>
+        {/* Full-phone overlay slot (scoped to the frame, covers chrome+tabbar). */}
+        {overlay}
       </div>
     </div>
   );

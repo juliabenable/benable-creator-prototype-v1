@@ -5,6 +5,7 @@ import App from './App.jsx';
 import './styles/app.css';
 import './styles/postcard.css';
 import './styles/shell.css';
+import './styles/campaigns.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

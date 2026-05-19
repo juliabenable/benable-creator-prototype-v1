@@ -58,8 +58,8 @@
   margin-top: 6px;
 }
 
-@media (max-width: 420px) {
-  .pc-polaroid { width: 260px; height: 330px; }
-  .pc-polaroid__caption { font-size: 19px; }
-  .pc-polaroid__signoff { font-size: 14px; }
+@media (max-width: 720px) {
+  .pc-polaroid { width: 220px; height: 290px; }
+  .pc-polaroid__caption { font-size: 17px; }
+  .pc-polaroid__signoff { font-size: 13px; }
 }

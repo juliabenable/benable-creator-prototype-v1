@@ -7,7 +7,7 @@ const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // phase: 'sealed' | 'opening' | 'revealed' | 'dismissed'
-export default function ThankYouTakeover({ postcard, brandName, onDismiss }) {
+export default function ThankYouTakeover({ postcard, post, brandName, onDismiss }) {
   const reduced = prefersReducedMotion();
   const [phase, setPhase] = useState(reduced ? 'revealed' : 'sealed');
   const [scrimIn, setScrimIn] = useState(false);
@@ -47,8 +47,8 @@ export default function ThankYouTakeover({ postcard, brandName, onDismiss }) {
           <span className="tyt-env-back" aria-hidden="true" />
           <span className="tyt-polaroid-wrap" aria-hidden={phase !== 'revealed' ? true : undefined}>
             <PolaroidPostcard
-              thumbnailUrl={postcard.thumbnailUrl}
-              platform={postcard.platform}
+              thumbnailUrl={post.thumbnailUrl}
+              platform={post.platform}
               brandName={brandName}
               message={postcard.message}
               signoff={postcard.signoff}

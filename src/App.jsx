@@ -39,6 +39,7 @@ export default function App() {
       overlay={takeoverOpen && postcard && (
         <ThankYouTakeover
           postcard={postcard}
+          post={DEMO.post}
           brandName={DEMO.brandName}
           onDismiss={dismissTakeover}
         />

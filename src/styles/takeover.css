@@ -91,16 +91,6 @@
   padding: 6px 12px;
 }
 
-/* Revealed: lift the polaroid clear of the envelope and show it upright. */
-.tyt--revealed .tyt-polaroid-wrap {
-  transform: translateX(-50%) translateY(-150px) scale(1) rotate(-3deg);
-  z-index: 6;
-}
-.tyt--opening .tyt-env-flap,
-.tyt--revealed .tyt-env-flap { transform: rotateX(-165deg); z-index: 0; }
-.tyt--opening .tyt-seal,
-.tyt--revealed .tyt-seal { opacity: 0; transform: translateY(30px) scale(0.2); }
-
 /* ---------- Elevated celebratory choreography ---------- */
 
 /* Envelope arrival + idle float while sealed. */

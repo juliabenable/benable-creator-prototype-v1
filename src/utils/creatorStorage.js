@@ -13,13 +13,22 @@ export const DEMO = {
   brandName: 'Pikora',
   campaignTitle: 'Instant Beef Bone Broth',
   campaignDesc: 'Create gripping content showcasing our new Bone Broth Collection.',
+  // Byte-identical to the brand app's persisted record (it stores exactly
+  // { style, message, signoff, sentAt } — see brand CreatorHubModal). The
+  // photo + platform tag are NOT stored on the postcard there; they come
+  // from campaign post data at render time, so we keep them on `post` below.
   postcard: {
     style: 'polaroid',
     message: 'this made our whole week — thank you for the magic ✨',
     signoff: '— the Pikora team',
+    sentAt: '2026-05-14T17:00:00.000Z',
+  },
+  // Campaign post media (NOT persisted in the shared store). In the
+  // connect-later iteration this is sourced from real post data, exactly
+  // as the brand app does — so the takeover needs no refactor.
+  post: {
     platform: 'Instagram Reel',
     thumbnailUrl: `${import.meta.env.BASE_URL}sample-post.svg`,
-    sentAt: '2026-05-14T17:00:00.000Z',
   },
 };
 

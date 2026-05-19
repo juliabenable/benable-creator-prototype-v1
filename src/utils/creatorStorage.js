@@ -1,0 +1,67 @@
+// Brand-compatible persistence. The KEY and the per-entry `postcard` shape are
+// intentionally identical to benable-brand-prototype-v4 so a later iteration
+// can read real brand-sent thank-yous with no refactor. The `seen` flag and
+// the demo seed are creator-app-local and never written into the brand shape.
+
+const STORAGE_KEY = 'benable.creatorActions.v3';
+const SEEN_PREFIX = 'benable.creator.seen.';
+
+// The single demo collab. campaignId/handle double as the storage key parts.
+export const DEMO = {
+  campaignId: 'pikora-bone-broth',
+  creatorHandle: '@rmtfka',
+  brandName: 'Pikora',
+  campaignTitle: 'Instant Beef Bone Broth',
+  postcard: {
+    style: 'polaroid',
+    message: 'this made our whole week — thank you for the magic ✨',
+    signoff: '— the Pikora team',
+    platform: 'Instagram Reel',
+    thumbnailUrl: `${import.meta.env.BASE_URL}sample-post.svg`,
+    sentAt: '2026-05-14T17:00:00.000Z',
+  },
+};
+
+function readAll() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  } catch {
+    return {};
+  }
+}
+function writeAll(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function makeKey(campaignId, creatorHandle) {
+  return `${campaignId}::${creatorHandle}`;
+}
+
+export function getPostcard(campaignId, creatorHandle) {
+  const entry = readAll()[makeKey(campaignId, creatorHandle)];
+  return (entry && entry.postcard) || null;
+}
+
+// Seed the demo postcard if no entry exists yet. Idempotent.
+export function seedDemoPostcardIfMissing() {
+  const all = readAll();
+  const key = makeKey(DEMO.campaignId, DEMO.creatorHandle);
+  if (!all[key] || !all[key].postcard) {
+    all[key] = { ...(all[key] || {}), postcard: DEMO.postcard };
+    writeAll(all);
+  }
+}
+
+export function hasSeen(campaignId, creatorHandle) {
+  return localStorage.getItem(SEEN_PREFIX + makeKey(campaignId, creatorHandle)) === '1';
+}
+export function markSeen(campaignId, creatorHandle) {
+  localStorage.setItem(SEEN_PREFIX + makeKey(campaignId, creatorHandle), '1');
+}
+
+// Demo reset: clear the shared store + the seen flag, then re-seed so the
+// takeover auto-plays again on next Campaigns mount.
+export function resetDemo() {
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(SEEN_PREFIX + makeKey(DEMO.campaignId, DEMO.creatorHandle));
+  seedDemoPostcardIfMissing();
+}

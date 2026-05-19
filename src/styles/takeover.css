@@ -1,0 +1,102 @@
+.tyt-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background: rgba(28, 22, 44, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.tyt-scrim--in { opacity: 1; }
+
+.tyt-stage {
+  position: relative;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.tyt-envelope {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+.tyt-env-back {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #c89472 0%, #b07a55 50%, #9c6443 100%);
+  border-radius: 6px;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.3);
+  z-index: 1;
+}
+.tyt-polaroid-wrap {
+  position: absolute;
+  left: 50%; top: 12px;
+  transform: translateX(-50%) scale(0.5);
+  transform-origin: top center;
+  z-index: 2;
+}
+.tyt-env-front {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 64%;
+  background: linear-gradient(180deg, #f1d6b8 0%, #e6c69a 60%, #d4a373 100%);
+  clip-path: polygon(0 26%, 50% 0, 100% 26%, 100% 100%, 0 100%);
+  z-index: 3;
+}
+.tyt-env-flap {
+  position: absolute; top: 0; left: 0; right: 0; height: 64%;
+  background: linear-gradient(180deg, #e6c69a 0%, #c89472 100%);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  transform-origin: top center;
+  z-index: 4;
+}
+.tyt-seal {
+  position: absolute; top: 44%; left: 50%;
+  width: 30px; height: 30px; margin-left: -15px;
+  display: grid; place-items: center;
+  background: #e85a82; color: #fff; font-size: 15px;
+  border-radius: 50%;
+  z-index: 5;
+}
+.tyt-cp { display: none; }
+
+.tyt-caption {
+  margin: 0;
+  color: #fff;
+  font: 600 16px/1.3 -apple-system, system-ui, sans-serif;
+  text-align: center;
+  min-height: 21px;
+}
+.tyt-done, .tyt-skip {
+  border: 0;
+  cursor: pointer;
+  font: 600 14px/1 -apple-system, system-ui, sans-serif;
+}
+.tyt-done {
+  background: #fff; color: #5d3fd3;
+  padding: 12px 26px; border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.tyt-skip {
+  background: none; color: rgba(255,255,255,0.75);
+  padding: 6px 12px;
+}
+
+/* Revealed: lift the polaroid clear of the envelope and show it upright. */
+.tyt--revealed .tyt-polaroid-wrap {
+  transform: translateX(-50%) translateY(-150px) scale(1) rotate(-3deg);
+  z-index: 6;
+}
+.tyt--opening .tyt-env-flap,
+.tyt--revealed .tyt-env-flap { transform: rotateX(-165deg); z-index: 0; }
+.tyt--opening .tyt-seal,
+.tyt--revealed .tyt-seal { opacity: 0; transform: translateY(30px) scale(0.2); }

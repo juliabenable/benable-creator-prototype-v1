@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 import MobileShell from './shell/MobileShell.jsx';
 import CampaignsScreen from './screens/CampaignsScreen.jsx';
+import PlaceholderTab from './screens/PlaceholderTab.jsx';
 import ThankYouTakeover from './components/ThankYouTakeover.jsx';
+import ResetFab from './components/ResetFab.jsx';
 import {
   DEMO, seedDemoPostcardIfMissing, getPostcard, hasSeen, markSeen,
 } from './utils/creatorStorage.js';
+
+const TAB_LABELS = { home: 'Home', discover: 'Discover', profile: 'Profile' };
 
 export default function App() {
   const [tab, setTab] = useState('campaigns');
@@ -12,7 +16,6 @@ export default function App() {
 
   useEffect(() => { seedDemoPostcardIfMissing(); }, []);
 
-  // Auto-open once when Campaigns is active and the thank-you is unseen.
   useEffect(() => {
     if (tab !== 'campaigns') return;
     if (getPostcard(DEMO.campaignId, DEMO.creatorHandle) &&
@@ -30,7 +33,7 @@ export default function App() {
 
   return (
     <MobileShell
-      title="Campaigns"
+      title={tab === 'campaigns' ? 'Campaigns' : TAB_LABELS[tab]}
       activeTab={tab}
       onSelectTab={setTab}
       overlay={takeoverOpen && postcard && (
@@ -43,7 +46,8 @@ export default function App() {
     >
       {tab === 'campaigns'
         ? <CampaignsScreen onOpenThankYou={() => setTakeoverOpen(true)} />
-        : <div style={{ padding: 20, color: '#999', fontFamily: 'system-ui' }}>Coming soon</div>}
+        : <PlaceholderTab label={TAB_LABELS[tab]} />}
+      <ResetFab />
     </MobileShell>
   );
 }

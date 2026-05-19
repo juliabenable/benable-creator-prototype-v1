@@ -43,11 +43,11 @@ export default function App() {
           onDismiss={dismissTakeover}
         />
       )}
+      fab={<ResetFab />}
     >
       {tab === 'campaigns'
         ? <CampaignsScreen onOpenThankYou={() => setTakeoverOpen(true)} />
         : <PlaceholderTab label={TAB_LABELS[tab]} />}
-      <ResetFab />
     </MobileShell>
   );
 }

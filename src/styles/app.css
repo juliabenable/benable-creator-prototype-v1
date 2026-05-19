@@ -6,7 +6,7 @@ html, body, #root { margin: 0; height: 100%; }
 .reset-fab {
   position: absolute;
   top: 60px; right: 14px;
-  z-index: 60;
+  z-index: 40;
   display: inline-flex;
   align-items: center;
   gap: 6px;

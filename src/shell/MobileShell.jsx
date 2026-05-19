@@ -7,7 +7,7 @@ const TABS = [
   { id: 'profile', label: 'Profile', Icon: User },
 ];
 
-export default function MobileShell({ title, activeTab, onSelectTab, children, overlay }) {
+export default function MobileShell({ title, activeTab, onSelectTab, children, overlay, fab }) {
   return (
     <div className="app-bg">
       <div className="phone">
@@ -36,6 +36,9 @@ export default function MobileShell({ title, activeTab, onSelectTab, children, o
           ))}
           <span className="tabbar__home-indicator" aria-hidden="true" />
         </nav>
+        {/* FAB slot: fixed within the phone frame (won't scroll with content);
+            sits below the overlay so the takeover scrim covers it. */}
+        {fab}
         {/* Full-phone overlay slot (scoped to the frame, covers chrome+tabbar). */}
         {overlay}
       </div>

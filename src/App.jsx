@@ -47,7 +47,7 @@ export default function App() {
       fab={<ResetFab />}
     >
       {tab === 'campaigns'
-        ? <CampaignsScreen onOpenThankYou={() => setTakeoverOpen(true)} />
+        ? <CampaignsScreen />
         : <PlaceholderTab label={TAB_LABELS[tab]} />}
     </MobileShell>
   );

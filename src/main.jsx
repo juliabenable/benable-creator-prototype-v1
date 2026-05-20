@@ -6,6 +6,7 @@ import './styles/app.css';
 import './styles/postcard.css';
 import './styles/shell.css';
 import './styles/campaigns.css';
+import './styles/wall.css';
 import './styles/takeover.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

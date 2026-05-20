@@ -52,3 +52,4 @@
   font: 600 13px/1 -apple-system, system-ui, sans-serif;
   cursor: pointer;
 }
+.campaigns__body--wall { padding: 0; }

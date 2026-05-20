@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import EmptyState from './EmptyState.jsx';
-import FinishedCampaignCard from './FinishedCampaignCard.jsx';
-import { DEMO, getPostcard } from '../utils/creatorStorage.js';
+import WallScreen from './WallScreen.jsx';
+import { DEMO, getPostcard, getPrivateNote } from '../utils/creatorStorage.js';
 
 const SUBTABS = ['New', 'Active', 'Finished'];
 
-export default function CampaignsScreen({ onOpenThankYou }) {
+function formatSentAt(iso) {
+  return new Date(iso).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+export default function CampaignsScreen() {
   const [sub, setSub] = useState('Finished');
-  const hasThankYou = !!getPostcard(DEMO.campaignId, DEMO.creatorHandle);
+  const postcard = getPostcard(DEMO.campaignId, DEMO.creatorHandle);
+  const privateNote = getPrivateNote(DEMO.campaignId, DEMO.creatorHandle);
 
   return (
     <div className="campaigns">
@@ -24,17 +29,20 @@ export default function CampaignsScreen({ onOpenThankYou }) {
           </button>
         ))}
       </div>
-      <div className="campaigns__body">
+      <div className="campaigns__body campaigns__body--wall">
         {sub === 'New' && <EmptyState kind="new" />}
         {sub === 'Active' && <EmptyState kind="active" />}
         {sub === 'Finished' && (
-          <FinishedCampaignCard
-            brandName={DEMO.brandName}
-            campaignTitle={DEMO.campaignTitle}
-            campaignDesc={DEMO.campaignDesc}
-            hasThankYou={hasThankYou}
-            onOpenThankYou={onOpenThankYou}
-          />
+          postcard
+            ? <WallScreen
+                brandName={DEMO.brandName}
+                campaignTitle={DEMO.campaignTitle}
+                postcard={postcard}
+                post={DEMO.post}
+                privateNote={privateNote}
+                sentAtLabel={formatSentAt(postcard.sentAt)}
+              />
+            : <EmptyState kind="finished" />
         )}
       </div>
     </div>

@@ -7,9 +7,17 @@
   align-items: center;
   justify-content: center;
   gap: 22px;
-  background: rgba(22, 16, 36, 0.96);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  /* Warm celebratory spotlight: brand-purple gradient, lighter in the
+     center where the envelope sits, deeper toward the edges. Opaque
+     enough to fully cover the wall behind without feeling like a
+     blackout. */
+  background:
+    radial-gradient(ellipse at center,
+      rgba(108, 86, 158, 0.96) 0%,
+      rgba(58, 42, 96, 0.97) 55%,
+      rgba(34, 24, 60, 0.98) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   /* Opaque from first render — entry fade was JS-driven and proved fragile
      under React 19 StrictMode. The exit fade is still smooth via --out. */
   opacity: 1;

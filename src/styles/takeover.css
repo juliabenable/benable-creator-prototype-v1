@@ -156,6 +156,25 @@
   z-index: 6;
 }
 
+/* Flying: polaroid animates from revealed pose toward the wall pin
+   coordinates, scrim fades, then the takeover unmounts. The wall's
+   static polaroid is at matching visual coordinates; the opacity fade
+   at the end of flying hides any sub-pixel mismatch. */
+.tyt--flying .tyt-polaroid-wrap {
+  transform: translateX(-50%) translateY(-300px) scale(0.69) rotate(-3deg);
+  z-index: 6;
+  transition: transform .55s cubic-bezier(.4, 0, .2, 1), opacity .25s ease .35s;
+  opacity: 0;
+}
+.tyt--flying .tyt-envelope,
+.tyt--flying .tyt-env-flap,
+.tyt--flying .tyt-env-front,
+.tyt--flying .tyt-env-back,
+.tyt--flying .tyt-seal {
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
 /* Confetti burst — only on reveal. */
 .tyt-cp {
   display: block;
@@ -209,7 +228,8 @@
   .tyt-env-flap, .tyt-seal, .tyt-polaroid-wrap { transition: none; }
   .tyt-env-flap, .tyt-env-front, .tyt-env-back, .tyt-seal { display: none; }
   .tyt-polaroid-wrap,
-  .tyt--revealed .tyt-polaroid-wrap {
+  .tyt--revealed .tyt-polaroid-wrap,
+  .tyt--flying .tyt-polaroid-wrap {
     position: static;
     transform: none;
     z-index: 6;

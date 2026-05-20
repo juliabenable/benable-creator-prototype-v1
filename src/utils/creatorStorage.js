@@ -23,12 +23,20 @@ export const DEMO = {
     signoff: '— the Pikora team',
     sentAt: '2026-05-14T17:00:00.000Z',
   },
+  // Optional private handwritten note the brand sent alongside the polaroid.
+  // Creator-introduced field today; a future brand-app iteration writes this
+  // alongside `postcard`. Not part of the byte-compat postcard core.
+  privateNote: {
+    message: "p.s. the way you opened the reel — totally disarming. that's exactly the energy we hoped someone would bring to this. excited to make more.",
+    signoff: 'xx Ana, founder',
+    sentAt: '2026-05-14T17:00:00.000Z',
+  },
   // Campaign post media (NOT persisted in the shared store). In the
   // connect-later iteration this is sourced from real post data, exactly
   // as the brand app does — so the takeover needs no refactor.
   post: {
     platform: 'Instagram Reel',
-    thumbnailUrl: `${import.meta.env.BASE_URL}sample-post.svg`,
+    thumbnailUrl: 'https://benable-followers.s3.amazonaws.com/ig-siennapierre-reel-3207770097225833451-full.jpg',
   },
 };
 
@@ -51,6 +59,11 @@ export function getPostcard(campaignId, creatorHandle) {
   return (entry && entry.postcard) || null;
 }
 
+export function getPrivateNote(campaignId, creatorHandle) {
+  const entry = readAll()[makeKey(campaignId, creatorHandle)];
+  return (entry && entry.privateNote) || null;
+}
+
 // Seed the demo postcard only if NO entry exists for this key yet. This
 // preserves any real brand-written entry untouched (the connect-later goal):
 // if the brand app already wrote this key for any reason, we never fabricate
@@ -59,7 +72,7 @@ export function seedDemoPostcardIfMissing() {
   const all = readAll();
   const key = makeKey(DEMO.campaignId, DEMO.creatorHandle);
   if (!all[key]) {
-    all[key] = { postcard: DEMO.postcard };
+    all[key] = { postcard: DEMO.postcard, privateNote: DEMO.privateNote };
     writeAll(all);
   }
 }

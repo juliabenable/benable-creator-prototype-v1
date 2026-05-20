@@ -45,6 +45,7 @@
   transform: translateX(-50%) scale(0.5);
   transform-origin: top center;
   z-index: 2;
+  opacity: 0;
 }
 .tyt-env-front {
   position: absolute; bottom: 0; left: 0; right: 0; height: 64%;
@@ -146,6 +147,8 @@
   transform: rotateX(-172deg);
   z-index: 0;
 }
+.tyt--opening .tyt-polaroid-wrap,
+.tyt--revealed .tyt-polaroid-wrap { opacity: 1; }
 
 /* Revealed: polaroid springs out and settles with a tilt. */
 .tyt--revealed .tyt-polaroid-wrap {

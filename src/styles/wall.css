@@ -99,6 +99,22 @@
   opacity: 0.55;
 }
 
+/* While the takeover scrim is on-screen (and not in its dismiss-fade),
+   hide the wall's polaroid + caption so the translucent scrim has
+   nothing to leak through. During the flying dismiss the scrim gets
+   the --out class, `:has()` stops matching, and the wall content
+   fades back in just as the polaroid lands. */
+.wall__pin-area,
+.wall__caption {
+  transition: opacity 0.4s ease;
+}
+.phone:has(.tyt-scrim:not(.tyt-scrim--out)) .wall__pin-area,
+.phone:has(.tyt-scrim:not(.tyt-scrim--out)) .wall__caption {
+  opacity: 0;
+  transition: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wall__card { transition: none; }
+  .wall__pin-area, .wall__caption { transition: none; }
 }

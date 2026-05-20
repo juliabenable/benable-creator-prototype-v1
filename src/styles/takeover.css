@@ -7,14 +7,13 @@
   align-items: center;
   justify-content: center;
   gap: 22px;
-  /* Match the wall's gradient so the takeover backdrop IS the wall —
-     when the polaroid lands, it's already home. Fully opaque via the
-     cream base, so no leak. */
-  background:
-    radial-gradient(circle at 20% 18%, rgba(255,236,210,0.65), transparent 55%),
-    radial-gradient(circle at 80% 70%, rgba(244,224,255,0.45), transparent 55%),
-    repeating-linear-gradient(45deg, rgba(122, 92, 250, 0.018) 0 2px, transparent 2px 4px),
-    #fbf6ee;
+  /* Soft frosted-glass overlay — translucent so the wall's warm tone
+     glows through, blur softens the edges. No leak because the wall's
+     polaroid + caption are hidden via :has() while the scrim is up
+     (see wall.css). */
+  background: rgba(28, 22, 44, 0.62);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   /* Opaque from first render — entry fade was JS-driven and proved fragile
      under React 19 StrictMode. The exit fade is still smooth via --out. */
   opacity: 1;
@@ -79,7 +78,7 @@
 
 .tyt-caption {
   margin: 0;
-  color: #2a2147;
+  color: #fff;
   font: 600 16px/1.3 -apple-system, system-ui, sans-serif;
   text-align: center;
   min-height: 21px;
@@ -95,7 +94,7 @@
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 .tyt-skip {
-  background: none; color: rgba(42, 33, 71, 0.6);
+  background: none; color: rgba(255,255,255,0.75);
   padding: 6px 12px;
 }
 
@@ -125,9 +124,9 @@
   animation: tyt-hint 2.2s ease-out 1.2s infinite;
 }
 @keyframes tyt-hint {
-  0%   { box-shadow: 0 0 0 0 rgba(122, 92, 250, 0.35); }
-  70%  { box-shadow: 0 0 0 16px rgba(122, 92, 250, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(122, 92, 250, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35); }
+  70%  { box-shadow: 0 0 0 16px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
 }
 
 /* Smooth, premium phase transitions. */

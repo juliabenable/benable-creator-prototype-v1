@@ -7,16 +7,14 @@
   align-items: center;
   justify-content: center;
   gap: 22px;
-  /* Soft light lavender-grey backdrop: airy and gentle. Opaque enough
-     to fully cover the wall (no leak), with a subtle radial spotlight
-     so the envelope feels lit. */
+  /* Match the wall's gradient so the takeover backdrop IS the wall —
+     when the polaroid lands, it's already home. Fully opaque via the
+     cream base, so no leak. */
   background:
-    radial-gradient(ellipse at center,
-      rgba(244, 241, 250, 0.97) 0%,
-      rgba(228, 224, 238, 0.97) 60%,
-      rgba(213, 208, 226, 0.98) 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+    radial-gradient(circle at 20% 18%, rgba(255,236,210,0.65), transparent 55%),
+    radial-gradient(circle at 80% 70%, rgba(244,224,255,0.45), transparent 55%),
+    repeating-linear-gradient(45deg, rgba(122, 92, 250, 0.018) 0 2px, transparent 2px 4px),
+    #fbf6ee;
   /* Opaque from first render — entry fade was JS-driven and proved fragile
      under React 19 StrictMode. The exit fade is still smooth via --out. */
   opacity: 1;

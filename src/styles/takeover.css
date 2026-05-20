@@ -7,13 +7,15 @@
   align-items: center;
   justify-content: center;
   gap: 22px;
-  background: rgba(28, 22, 44, 0.62);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  opacity: 0;
+  background: rgba(22, 16, 36, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  /* Opaque from first render — entry fade was JS-driven and proved fragile
+     under React 19 StrictMode. The exit fade is still smooth via --out. */
+  opacity: 1;
   transition: opacity .3s ease;
 }
-.tyt-scrim--in { opacity: 1; }
+.tyt-scrim--out { opacity: 0; }
 
 .tyt-stage {
   position: relative;

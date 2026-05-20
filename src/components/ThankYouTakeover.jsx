@@ -10,15 +10,13 @@ const prefersReducedMotion = () =>
 export default function ThankYouTakeover({ postcard, post, brandName, onDismiss }) {
   const reduced = prefersReducedMotion();
   const [phase, setPhase] = useState(reduced ? 'revealed' : 'sealed');
-  const [scrimIn, setScrimIn] = useState(false);
+  const [scrimOut, setScrimOut] = useState(false);
   const openTimerRef = useRef(null);
   const flyTimerRef = useRef(null);
   const dismissTimerRef = useRef(null);
 
   useEffect(() => {
-    const r = requestAnimationFrame(() => setScrimIn(true));
     return () => {
-      cancelAnimationFrame(r);
       clearTimeout(openTimerRef.current);
       clearTimeout(flyTimerRef.current);
       clearTimeout(dismissTimerRef.current);
@@ -35,12 +33,12 @@ export default function ThankYouTakeover({ postcard, post, brandName, onDismiss 
   function dismissToWall() {
     if (phase !== 'revealed') return;
     setPhase('flying');
-    setScrimIn(false);
+    setScrimOut(true);
     flyTimerRef.current = window.setTimeout(onDismiss, 620);
   }
   function quickDismiss() {
     setPhase('dismissed');
-    setScrimIn(false);
+    setScrimOut(true);
     dismissTimerRef.current = window.setTimeout(onDismiss, 320);
   }
 
@@ -52,7 +50,7 @@ export default function ThankYouTakeover({ postcard, post, brandName, onDismiss 
 
   return (
     <div
-      className={'tyt-scrim' + (scrimIn ? ' tyt-scrim--in' : '')}
+      className={'tyt-scrim' + (scrimOut ? ' tyt-scrim--out' : '')}
       role="dialog"
       aria-modal="true"
       onClick={onScrimClick}
